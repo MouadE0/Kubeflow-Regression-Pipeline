@@ -1,0 +1,10 @@
+name: Preprocess_Clean G5
+description: Clean Preprocess Data
+
+outputs:
+  - { name: clean_data, type: Json, description: "Cleaned Data" }
+
+implementation:
+  container:
+    image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_preprocess_clean_data_project_mkg
+    command: [python, preprocess_clean.py]

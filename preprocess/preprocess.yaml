@@ -1,0 +1,10 @@
+name: Preprocess_Split G5
+description: Preprocess Data
+
+outputs:
+  - { name: split_data, type: Json, description: "Split Data" }
+
+implementation:
+  container:
+    image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_preprocess_split_data_project_mkg
+    command: [python, preprocess_split.py]

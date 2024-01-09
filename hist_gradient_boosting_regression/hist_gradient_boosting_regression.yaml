@@ -1,0 +1,19 @@
+name: Hist Gradient Boosting Regression G5
+description: Apply a Hist Gradient Boosting regression
+
+inputs:
+  - { name: split_data, type: Json, description: "Split Data" }
+
+outputs:
+  - { name: Score, type: Float, description: "Score metric" }
+
+implementation:
+  container:
+    image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_hist_gradient_boosting_reg_project_mkg
+    command:
+      [
+        python,
+        hist_gradient_boosting_regression.py,
+        --score,
+        { outputPath: Score },
+      ]

@@ -1,0 +1,545 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: pipeline-
+  annotations:
+    {
+      pipelines.kubeflow.org/kfp_sdk_version: 1.8.20,
+      pipelines.kubeflow.org/pipeline_compilation_time: "2023-04-30T23:06:27.994534",
+      pipelines.kubeflow.org/pipeline_spec:
+        '{"description": "Applies Preprocess, Linear
+        and Random Forest Regression problem.", "name": "Pipeline"}',
+    }
+  labels: { pipelines.kubeflow.org/kfp_sdk_version: 1.8.20 }
+spec:
+  entrypoint: pipeline
+  templates:
+    - name: decision-tree-regression-g5
+      container:
+        args: []
+        command:
+          [
+            python,
+            decision_tree_regression.py,
+            --score,
+            /tmp/outputs/Score/data,
+          ]
+        image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Edecision_tree_reg_project_mkg
+      inputs:
+        artifacts:
+          - {
+              name: preprocess-split-g5-split_data,
+              path: /tmp/inputs/split_data/data,
+            }
+      outputs:
+        parameters:
+          - name: decision-tree-regression-g5-Score
+            valueFrom: { path: /tmp/outputs/Score/data }
+        artifacts:
+          - {
+              name: decision-tree-regression-g5-Score,
+              path: /tmp/outputs/Score/data,
+            }
+      metadata:
+        labels:
+          pipelines.kubeflow.org/kfp_sdk_version: 1.8.20
+          pipelines.kubeflow.org/pipeline-sdk-type: kfp
+          pipelines.kubeflow.org/enable_caching: "true"
+        annotations:
+          { pipelines.kubeflow.org/component_spec: '{"description": "Apply
+              a Decision Tree Regression model", "implementation": {"container": {"command":
+              ["python", "decision_tree_regression.py", "--score", {"outputPath": "Score"}],
+              "image": "REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Edecision_tree_reg_project_mkg"}}, "inputs":
+              [{"description": "Split Data", "name": "split_data", "type": "Json"}], "name":
+              "Decision Tree Regression G5", "outputs": [{"description": "Score metric",
+              "name": "Score", "type": "Float"}]}', pipelines.kubeflow.org/component_ref: '{"digest":
+              "REPLACE_WITH_CONTAINER_IMAGE_HASH", "url":
+              "decision_tree_regression/decision_tree_regression.yaml"}' }
+    - name: elastic-net-regression-g5
+      container:
+        args: []
+        command:
+          [python, elastic_net_regression.py, --score, /tmp/outputs/Score/data]
+        image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Eelastic_net_reg_project_mkg
+      inputs:
+        artifacts:
+          - {
+              name: preprocess-split-g5-split_data,
+              path: /tmp/inputs/split_data/data,
+            }
+      outputs:
+        parameters:
+          - name: elastic-net-regression-g5-Score
+            valueFrom: { path: /tmp/outputs/Score/data }
+        artifacts:
+          - {
+              name: elastic-net-regression-g5-Score,
+              path: /tmp/outputs/Score/data,
+            }
+      metadata:
+        labels:
+          pipelines.kubeflow.org/kfp_sdk_version: 1.8.20
+          pipelines.kubeflow.org/pipeline-sdk-type: kfp
+          pipelines.kubeflow.org/enable_caching: "true"
+        annotations:
+          { pipelines.kubeflow.org/component_spec: '{"description": "Apply
+              a Elastic Net Regression model", "implementation": {"container": {"command":
+              ["python", "elastic_net_regression.py", "--score", {"outputPath": "Score"}],
+              "image": "REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Eelastic_net_reg_project_mkg"}}, "inputs":
+              [{"description": "Split Data", "name": "split_data", "type": "Json"}], "name":
+              "Elastic Net Regression G5", "outputs": [{"description": "Score metric",
+              "name": "Score", "type": "Float"}]}', pipelines.kubeflow.org/component_ref: '{"digest":
+              "REPLACE_WITH_CONTAINER_IMAGE_HASH", "url":
+              "elastic_net_regression/elastic_net_regression.yaml"}' }
+    - name: hist-gradient-boosting-regression-g5
+      container:
+        args: []
+        command:
+          [
+            python,
+            hist_gradient_boosting_regression.py,
+            --score,
+            /tmp/outputs/Score/data,
+          ]
+        image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Ehist_gradient_boosting_reg_project_mkg
+      inputs:
+        artifacts:
+          - {
+              name: preprocess-split-g5-split_data,
+              path: /tmp/inputs/split_data/data,
+            }
+      outputs:
+        parameters:
+          - name: hist-gradient-boosting-regression-g5-Score
+            valueFrom: { path: /tmp/outputs/Score/data }
+        artifacts:
+          - {
+              name: hist-gradient-boosting-regression-g5-Score,
+              path: /tmp/outputs/Score/data,
+            }
+      metadata:
+        labels:
+          pipelines.kubeflow.org/kfp_sdk_version: 1.8.20
+          pipelines.kubeflow.org/pipeline-sdk-type: kfp
+          pipelines.kubeflow.org/enable_caching: "true"
+        annotations:
+          { pipelines.kubeflow.org/component_spec: '{"description": "Apply
+              a Hist Gradient Boosting regression", "implementation": {"container": {"command":
+              ["python", "hist_gradient_boosting_regression.py", "--score", {"outputPath":
+              "Score"}], "image": "REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Ehist_gradient_boosting_reg_project_mkg"}},
+              "inputs": [{"description": "Split Data", "name": "split_data", "type": "Json"}],
+              "name": "Hist Gradient Boosting Regression G5", "outputs": [{"description":
+              "Score metric", "name": "Score", "type": "Float"}]}', pipelines.kubeflow.org/component_ref: '{"digest":
+              "REPLACE_WITH_CONTAINER_IMAGE_HASH", "url":
+              "hist_gradient_boosting_regression/hist_gradient_boosting_regression.yaml"}' }
+    - name: lasso-regression-g5
+      container:
+        args: []
+        command: [python, lasso_regression.py, --score, /tmp/outputs/Score/data]
+        image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Elasso_reg_project_mkg
+      inputs:
+        artifacts:
+          - {
+              name: preprocess-split-g5-split_data,
+              path: /tmp/inputs/split_data/data,
+            }
+      outputs:
+        parameters:
+          - name: lasso-regression-g5-Score
+            valueFrom: { path: /tmp/outputs/Score/data }
+        artifacts:
+          - { name: lasso-regression-g5-Score, path: /tmp/outputs/Score/data }
+      metadata:
+        labels:
+          pipelines.kubeflow.org/kfp_sdk_version: 1.8.20
+          pipelines.kubeflow.org/pipeline-sdk-type: kfp
+          pipelines.kubeflow.org/enable_caching: "true"
+        annotations:
+          { pipelines.kubeflow.org/component_spec: '{"description": "Apply
+              a Lasso Regression model", "implementation": {"container": {"command": ["python",
+              "lasso_regression.py", "--score", {"outputPath": "Score"}], "image": "REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Elasso_reg_project_mkg"}},
+              "inputs": [{"description": "Split Data", "name": "split_data", "type": "Json"}],
+              "name": "Lasso Regression G5", "outputs": [{"description": "Score metric",
+              "name": "Score", "type": "Float"}]}', pipelines.kubeflow.org/component_ref: '{"digest":
+              "REPLACE_WITH_CONTAINER_IMAGE_HASH", "url":
+              "lasso_regression/lasso_regression.yaml"}' }
+    - name: pipeline
+      dag:
+        tasks:
+          - name: decision-tree-regression-g5
+            template: decision-tree-regression-g5
+            dependencies: [preprocess-split-g5]
+            arguments:
+              artifacts:
+                - {
+                    name: preprocess-split-g5-split_data,
+                    from: "{{tasks.preprocess-split-g5.outputs.artifacts.preprocess-split-g5-split_data}}",
+                  }
+          - name: elastic-net-regression-g5
+            template: elastic-net-regression-g5
+            dependencies: [preprocess-split-g5]
+            arguments:
+              artifacts:
+                - {
+                    name: preprocess-split-g5-split_data,
+                    from: "{{tasks.preprocess-split-g5.outputs.artifacts.preprocess-split-g5-split_data}}",
+                  }
+          - name: hist-gradient-boosting-regression-g5
+            template: hist-gradient-boosting-regression-g5
+            dependencies: [preprocess-split-g5]
+            arguments:
+              artifacts:
+                - {
+                    name: preprocess-split-g5-split_data,
+                    from: "{{tasks.preprocess-split-g5.outputs.artifacts.preprocess-split-g5-split_data}}",
+                  }
+          - name: lasso-regression-g5
+            template: lasso-regression-g5
+            dependencies: [preprocess-split-g5]
+            arguments:
+              artifacts:
+                - {
+                    name: preprocess-split-g5-split_data,
+                    from: "{{tasks.preprocess-split-g5.outputs.artifacts.preprocess-split-g5-split_data}}",
+                  }
+          - name: polynomial-regression-g5
+            template: polynomial-regression-g5
+            dependencies: [preprocess-split-g5]
+            arguments:
+              artifacts:
+                - {
+                    name: preprocess-split-g5-split_data,
+                    from: "{{tasks.preprocess-split-g5.outputs.artifacts.preprocess-split-g5-split_data}}",
+                  }
+          - { name: preprocess-split-g5, template: preprocess-split-g5 }
+          - name: random-forest-regression-g5
+            template: random-forest-regression-g5
+            dependencies: [preprocess-split-g5]
+            arguments:
+              artifacts:
+                - {
+                    name: preprocess-split-g5-split_data,
+                    from: "{{tasks.preprocess-split-g5.outputs.artifacts.preprocess-split-g5-split_data}}",
+                  }
+          - name: ridge-regression-g5
+            template: ridge-regression-g5
+            dependencies: [preprocess-split-g5]
+            arguments:
+              artifacts:
+                - {
+                    name: preprocess-split-g5-split_data,
+                    from: "{{tasks.preprocess-split-g5.outputs.artifacts.preprocess-split-g5-split_data}}",
+                  }
+          - name: show-results
+            template: show-results
+            dependencies:
+              [
+                decision-tree-regression-g5,
+                elastic-net-regression-g5,
+                hist-gradient-boosting-regression-g5,
+                lasso-regression-g5,
+                polynomial-regression-g5,
+                random-forest-regression-g5,
+                ridge-regression-g5,
+              ]
+            arguments:
+              parameters:
+                - {
+                    name: decision-tree-regression-g5-Score,
+                    value: "{{tasks.decision-tree-regression-g5.outputs.parameters.decision-tree-regression-g5-Score}}",
+                  }
+                - {
+                    name: elastic-net-regression-g5-Score,
+                    value: "{{tasks.elastic-net-regression-g5.outputs.parameters.elastic-net-regression-g5-Score}}",
+                  }
+                - {
+                    name: hist-gradient-boosting-regression-g5-Score,
+                    value: "{{tasks.hist-gradient-boosting-regression-g5.outputs.parameters.hist-gradient-boosting-regression-g5-Score}}",
+                  }
+                - {
+                    name: lasso-regression-g5-Score,
+                    value: "{{tasks.lasso-regression-g5.outputs.parameters.lasso-regression-g5-Score}}",
+                  }
+                - {
+                    name: polynomial-regression-g5-Score,
+                    value: "{{tasks.polynomial-regression-g5.outputs.parameters.polynomial-regression-g5-Score}}",
+                  }
+                - {
+                    name: random-forest-regression-g5-Score,
+                    value: "{{tasks.random-forest-regression-g5.outputs.parameters.random-forest-regression-g5-Score}}",
+                  }
+                - {
+                    name: ridge-regression-g5-Score,
+                    value: "{{tasks.ridge-regression-g5.outputs.parameters.ridge-regression-g5-Score}}",
+                  }
+    - name: polynomial-regression-g5
+      container:
+        args: []
+        command:
+          [python, polynomial_regression.py, --score, /tmp/outputs/Score/data]
+        image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Epolynomial_reg_project_mkg
+      inputs:
+        artifacts:
+          - {
+              name: preprocess-split-g5-split_data,
+              path: /tmp/inputs/split_data/data,
+            }
+      outputs:
+        parameters:
+          - name: polynomial-regression-g5-Score
+            valueFrom: { path: /tmp/outputs/Score/data }
+        artifacts:
+          - {
+              name: polynomial-regression-g5-Score,
+              path: /tmp/outputs/Score/data,
+            }
+      metadata:
+        labels:
+          pipelines.kubeflow.org/kfp_sdk_version: 1.8.20
+          pipelines.kubeflow.org/pipeline-sdk-type: kfp
+          pipelines.kubeflow.org/enable_caching: "true"
+        annotations:
+          { pipelines.kubeflow.org/component_spec: '{"description": "Apply
+              a Polynomial Regression model", "implementation": {"container": {"command":
+              ["python", "polynomial_regression.py", "--score", {"outputPath": "Score"}],
+              "image": "REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Epolynomial_reg_project_mkg"}}, "inputs":
+              [{"description": "Split Data", "name": "split_data", "type": "Json"}], "name":
+              "Polynomial Regression G5", "outputs": [{"description": "Score metric",
+              "name": "Score", "type": "Float"}]}', pipelines.kubeflow.org/component_ref: '{"digest":
+              "REPLACE_WITH_CONTAINER_IMAGE_HASH", "url":
+              "polynomial_regression/polynomial_regression.yaml"}' }
+    - name: preprocess-split-g5
+      container:
+        args: []
+        command: [python, preprocess_split.py]
+        image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Epreprocess_split_data_project_mkg
+      outputs:
+        artifacts:
+          - {
+              name: preprocess-split-g5-split_data,
+              path: /tmp/outputs/split_data/data,
+            }
+      metadata:
+        labels:
+          pipelines.kubeflow.org/kfp_sdk_version: 1.8.20
+          pipelines.kubeflow.org/pipeline-sdk-type: kfp
+          pipelines.kubeflow.org/enable_caching: "true"
+        annotations:
+          { pipelines.kubeflow.org/component_spec: '{"description": "Preprocess
+              Data", "implementation": {"container": {"command": ["python", "preprocess_split.py"],
+              "image": "REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Epreprocess_split_data_project_mkg"}},
+              "name": "Preprocess_Split G5", "outputs": [{"description": "Split Data",
+              "name": "split_data", "type": "Json"}]}', pipelines.kubeflow.org/component_ref: '{"digest":
+              "REPLACE_WITH_CONTAINER_IMAGE_HASH", "url":
+              "preprocess/preprocess.yaml"}' }
+    - name: random-forest-regression-g5
+      container:
+        args: []
+        command: [python, rf_regression.py, --score, /tmp/outputs/Score/data]
+        image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Erf_reg_project_mkg
+      inputs:
+        artifacts:
+          - {
+              name: preprocess-split-g5-split_data,
+              path: /tmp/inputs/split_data/data,
+            }
+      outputs:
+        parameters:
+          - name: random-forest-regression-g5-Score
+            valueFrom: { path: /tmp/outputs/Score/data }
+        artifacts:
+          - {
+              name: random-forest-regression-g5-Score,
+              path: /tmp/outputs/Score/data,
+            }
+      metadata:
+        labels:
+          pipelines.kubeflow.org/kfp_sdk_version: 1.8.20
+          pipelines.kubeflow.org/pipeline-sdk-type: kfp
+          pipelines.kubeflow.org/enable_caching: "true"
+        annotations:
+          { pipelines.kubeflow.org/component_spec: '{"description": "Apply
+              a Random Forest regression", "implementation": {"container": {"command":
+              ["python", "rf_regression.py", "--score", {"outputPath": "Score"}], "image":
+              "REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Erf_reg_project_mkg"}}, "inputs": [{"description":
+              "Split Data", "name": "split_data", "type": "Json"}], "name": "Random Forest
+              Regression G5", "outputs": [{"description": "Score metric", "name": "Score",
+              "type": "Float"}]}', pipelines.kubeflow.org/component_ref: '{"digest": "REPLACE_WITH_CONTAINER_IMAGE_HASH",
+              "url": "rf_regression/rf_regression.yaml"}' }
+    - name: ridge-regression-g5
+      container:
+        args: []
+        command: [python, ridge_regression.py, --score, /tmp/outputs/Score/data]
+        image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Eridge_reg_project_mkg
+      inputs:
+        artifacts:
+          - {
+              name: preprocess-split-g5-split_data,
+              path: /tmp/inputs/split_data/data,
+            }
+      outputs:
+        parameters:
+          - name: ridge-regression-g5-Score
+            valueFrom: { path: /tmp/outputs/Score/data }
+        artifacts:
+          - { name: ridge-regression-g5-Score, path: /tmp/outputs/Score/data }
+      metadata:
+        labels:
+          pipelines.kubeflow.org/kfp_sdk_version: 1.8.20
+          pipelines.kubeflow.org/pipeline-sdk-type: kfp
+          pipelines.kubeflow.org/enable_caching: "true"
+        annotations:
+          { pipelines.kubeflow.org/component_spec: '{"description": "Apply
+              a Ridge Regression model", "implementation": {"container": {"command": ["python",
+              "ridge_regression.py", "--score", {"outputPath": "Score"}], "image": "REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Eridge_reg_project_mkg"}},
+              "inputs": [{"description": "Split Data", "name": "split_data", "type": "Json"}],
+              "name": "Ridge Regression G5", "outputs": [{"description": "Score metric",
+              "name": "Score", "type": "Float"}]}', pipelines.kubeflow.org/component_ref: '{"digest":
+              "REPLACE_WITH_CONTAINER_IMAGE_HASH", "url":
+              "ridge_regression/ridge_regression.yaml"}' }
+    - name: show-results
+      container:
+        args:
+          [
+            --score-rf-reg,
+            "{{inputs.parameters.random-forest-regression-g5-Score}}",
+            --score-hist-gradient-boosting,
+            "{{inputs.parameters.hist-gradient-boosting-regression-g5-Score}}",
+            --score-decision-tree,
+            "{{inputs.parameters.decision-tree-regression-g5-Score}}",
+            --score-elastic-net,
+            "{{inputs.parameters.elastic-net-regression-g5-Score}}",
+            --score-lasso,
+            "{{inputs.parameters.lasso-regression-g5-Score}}",
+            --score-ridge,
+            "{{inputs.parameters.ridge-regression-g5-Score}}",
+            --score-polynomial,
+            "{{inputs.parameters.polynomial-regression-g5-Score}}",
+          ]
+        command:
+          - sh
+          - -ec
+          - |
+            program_path=$(mktemp)
+            printf "%s" "$0" > "$program_path"
+            python3 -u "$program_path" "$@"
+          - "def show_results(score_rf_reg, score_hist_gradient_boosting, score_decision_tree\n\
+            , score_elastic_net, score_lasso, \n    score_ridge, score_polynomial\n):\n\
+            \    # Given the outputs from decision_tree and logistic regression components\n\
+            \    # the results are shown.\n    print(f\"Random Forest regression (accuracy):\
+            \ {score_rf_reg}\")\n    print(f\"Hist Gradient Boosting regression (accuracy):\
+            \ {score_hist_gradient_boosting}\")\n    print(f\"Decision Tree regression\
+            \ (accuracy): {score_decision_tree}\")\n    print(f\"Elastic Net regression\
+            \ (accuracy): {score_elastic_net}\")\n    print(f\"Lasso regression (accuracy):\
+            \ {score_lasso}\")\n    print(f\"Ridge regression (accuracy): {score_ridge}\"\
+            )\n    print(f\"Polynomial regression (accuracy): {score_polynomial}\")\n\
+            \    # Best Model\n    best_model = max(score_rf_reg, score_hist_gradient_boosting,\
+            \ score_decision_tree, score_elastic_net)\n    # Switch Case for best model\n\
+            \    if best_model == score_rf_reg:\n        print(\"Best Model is Random\
+            \ Forest\" + str(best_model))\n    elif best_model == score_hist_gradient_boosting:\n\
+            \        print(\"Best Model is Hist Gradient Boosting\" + str(best_model))\n\
+            \    elif best_model == score_decision_tree:\n        print(\"Best Model is\
+            \ Decision Tree\" + str(best_model))\n    elif best_model == score_elastic_net:\n\
+            \        print(\"Best Model is Elastic Net\" + str(best_model))\n    elif\
+            \ best_model == score_lasso:\n        print(\"Best Model is Lasso\" + str(best_model))\n\
+            \    elif best_model == score_polynomial:\n        print(\"Best Model is Polynomial\"\
+            \ + str(best_model))\n    elif best_model == score_ridge:\n        print(\"\
+            Best Model is Ridge\" + str(best_model))\n    else:\n        print(\"No Best\
+            \ Model\")\n\n    # Print Comparative Graph\n    # plt.bar([\"Linear Regression\"\
+            , \"Random Forest\", \n    #         \"Hist Gradient Boosting\", \n    # \
+            \        \"Decision Tree\", \"Elastic Net\", \"Lasso\", \n    #         \"\
+            Polynomial\", \"Ridge\"],\n    #         [score_lin_reg, score_rf_reg, score_hist_gradient_boosting,\
+            \ score_decision_tree, \n    #         score_elastic_net, score_lasso, score_polynomial,\
+            \ score_ridge])\n    # plt.title(\"Comparative Graph\")\n    # plt.xlabel(\"\
+            Models\")\n    # plt.show()\n\nimport argparse\n_parser = argparse.ArgumentParser(prog='Show\
+            \ results', description='')\n_parser.add_argument(\"--score-rf-reg\", dest=\"\
+            score_rf_reg\", type=float, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"\
+            --score-hist-gradient-boosting\", dest=\"score_hist_gradient_boosting\", type=float,\
+            \ required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--score-decision-tree\"\
+            , dest=\"score_decision_tree\", type=float, required=True, default=argparse.SUPPRESS)\n\
+            _parser.add_argument(\"--score-elastic-net\", dest=\"score_elastic_net\",\
+            \ type=float, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"\
+            --score-lasso\", dest=\"score_lasso\", type=float, required=True, default=argparse.SUPPRESS)\n\
+            _parser.add_argument(\"--score-ridge\", dest=\"score_ridge\", type=float,\
+            \ required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--score-polynomial\"\
+            , dest=\"score_polynomial\", type=float, required=True, default=argparse.SUPPRESS)\n\
+            _parsed_args = vars(_parser.parse_args())\n\n_outputs = show_results(**_parsed_args)\n"
+        image: python:3.7
+      inputs:
+        parameters:
+          - { name: decision-tree-regression-g5-Score }
+          - { name: elastic-net-regression-g5-Score }
+          - { name: hist-gradient-boosting-regression-g5-Score }
+          - { name: lasso-regression-g5-Score }
+          - { name: polynomial-regression-g5-Score }
+          - { name: random-forest-regression-g5-Score }
+          - { name: ridge-regression-g5-Score }
+      metadata:
+        labels:
+          pipelines.kubeflow.org/kfp_sdk_version: 1.8.20
+          pipelines.kubeflow.org/pipeline-sdk-type: kfp
+          pipelines.kubeflow.org/enable_caching: "true"
+        annotations:
+          {
+            pipelines.kubeflow.org/component_spec:
+              '{"implementation": {"container":
+              {"args": ["--score-rf-reg", {"inputValue": "score_rf_reg"}, "--score-hist-gradient-boosting",
+              {"inputValue": "score_hist_gradient_boosting"}, "--score-decision-tree",
+              {"inputValue": "score_decision_tree"}, "--score-elastic-net", {"inputValue":
+              "score_elastic_net"}, "--score-lasso", {"inputValue": "score_lasso"}, "--score-ridge",
+              {"inputValue": "score_ridge"}, "--score-polynomial", {"inputValue": "score_polynomial"}],
+              "command": ["sh", "-ec", "program_path=$(mktemp)\nprintf \"%s\" \"$0\" >
+              \"$program_path\"\npython3 -u \"$program_path\" \"$@\"\n", "def show_results(score_rf_reg,
+              score_hist_gradient_boosting, score_decision_tree\n, score_elastic_net,
+              score_lasso, \n    score_ridge, score_polynomial\n):\n    # Given the outputs
+              from decision_tree and logistic regression components\n    # the results
+              are shown.\n    print(f\"Random Forest regression (accuracy): {score_rf_reg}\")\n    print(f\"Hist
+              Gradient Boosting regression (accuracy): {score_hist_gradient_boosting}\")\n    print(f\"Decision
+              Tree regression (accuracy): {score_decision_tree}\")\n    print(f\"Elastic
+              Net regression (accuracy): {score_elastic_net}\")\n    print(f\"Lasso regression
+              (accuracy): {score_lasso}\")\n    print(f\"Ridge regression (accuracy):
+              {score_ridge}\")\n    print(f\"Polynomial regression (accuracy): {score_polynomial}\")\n    #
+              Best Model\n    best_model = max(score_rf_reg, score_hist_gradient_boosting,
+              score_decision_tree, score_elastic_net)\n    # Switch Case for best model\n    if
+              best_model == score_rf_reg:\n        print(\"Best Model is Random Forest\"
+              + str(best_model))\n    elif best_model == score_hist_gradient_boosting:\n        print(\"Best
+              Model is Hist Gradient Boosting\" + str(best_model))\n    elif best_model
+              == score_decision_tree:\n        print(\"Best Model is Decision Tree\" +
+              str(best_model))\n    elif best_model == score_elastic_net:\n        print(\"Best
+              Model is Elastic Net\" + str(best_model))\n    elif best_model == score_lasso:\n        print(\"Best
+              Model is Lasso\" + str(best_model))\n    elif best_model == score_polynomial:\n        print(\"Best
+              Model is Polynomial\" + str(best_model))\n    elif best_model == score_ridge:\n        print(\"Best
+              Model is Ridge\" + str(best_model))\n    else:\n        print(\"No Best
+              Model\")\n\n    # Print Comparative Graph\n    # plt.bar([\"Linear Regression\",
+              \"Random Forest\", \n    #         \"Hist Gradient Boosting\", \n    #         \"Decision
+              Tree\", \"Elastic Net\", \"Lasso\", \n    #         \"Polynomial\", \"Ridge\"],\n    #         [score_lin_reg,
+              score_rf_reg, score_hist_gradient_boosting, score_decision_tree, \n    #         score_elastic_net,
+              score_lasso, score_polynomial, score_ridge])\n    # plt.title(\"Comparative
+              Graph\")\n    # plt.xlabel(\"Models\")\n    # plt.show()\n\nimport argparse\n_parser
+              = argparse.ArgumentParser(prog=''Show results'', description='''')\n_parser.add_argument(\"--score-rf-reg\",
+              dest=\"score_rf_reg\", type=float, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--score-hist-gradient-boosting\",
+              dest=\"score_hist_gradient_boosting\", type=float, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--score-decision-tree\",
+              dest=\"score_decision_tree\", type=float, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--score-elastic-net\",
+              dest=\"score_elastic_net\", type=float, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--score-lasso\",
+              dest=\"score_lasso\", type=float, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--score-ridge\",
+              dest=\"score_ridge\", type=float, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"--score-polynomial\",
+              dest=\"score_polynomial\", type=float, required=True, default=argparse.SUPPRESS)\n_parsed_args
+              = vars(_parser.parse_args())\n\n_outputs = show_results(**_parsed_args)\n"],
+              "image": "python:3.7"}}, "inputs": [{"name": "score_rf_reg", "type": "Float"},
+              {"name": "score_hist_gradient_boosting", "type": "Float"}, {"name": "score_decision_tree",
+              "type": "Float"}, {"name": "score_elastic_net", "type": "Float"}, {"name":
+              "score_lasso", "type": "Float"}, {"name": "score_ridge", "type": "Float"},
+              {"name": "score_polynomial", "type": "Float"}], "name": "Show results"}',
+            pipelines.kubeflow.org/component_ref: "{}",
+            pipelines.kubeflow.org/arguments.parameters:
+              '{"score_decision_tree":
+              "{{inputs.parameters.decision-tree-regression-g5-Score}}", "score_elastic_net":
+              "{{inputs.parameters.elastic-net-regression-g5-Score}}", "score_hist_gradient_boosting":
+              "{{inputs.parameters.hist-gradient-boosting-regression-g5-Score}}", "score_lasso":
+              "{{inputs.parameters.lasso-regression-g5-Score}}", "score_polynomial": "{{inputs.parameters.polynomial-regression-g5-Score}}",
+              "score_rf_reg": "{{inputs.parameters.random-forest-regression-g5-Score}}",
+              "score_ridge": "{{inputs.parameters.ridge-regression-g5-Score}}"}',
+          }
+  arguments:
+    parameters: []
+  serviceAccountName: pipeline-runner

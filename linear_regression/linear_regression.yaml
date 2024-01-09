@@ -1,0 +1,19 @@
+name: Linear Regression G5
+description: Apply a  linear regression
+
+inputs:
+- {name: split_data, type: Json, description: 'Split Data'}
+
+outputs:
+- {name: Score, type: Float, description: 'Score metric'}
+
+implementation:
+  container:
+    image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_lin_reg_project_mkg
+    command: [
+      python, linear_regression.py,
+
+      --score,
+      {outputPath: Score},
+     
+    ]

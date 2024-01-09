@@ -1,0 +1,54 @@
+.PHONY: preprocess
+preprocess:
+	cd preprocess/ && docker build . -t REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_preprocess_data_project_mkg
+	docker push REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Epreprocess_data_project_mkg
+
+.PHONY: build_linear_reg
+build_push_linear_reg: preprocess
+	cd linear_regression/ && docker build . -t REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_lin_reg_project_mkg
+	docker push REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Elin_reg_project_mkg
+
+.PHONY: build_rf_reg
+build_push_rf_reg: preprocess
+	cd rf_regression/ && docker build . -t REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_rf_reg_project_mkg
+	docker push REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Erf_reg_project_mkg
+
+
+.PHONY: build_hist_gradient_boosting_reg
+build_push_hist_gradient_boosting_reg: preprocess
+	cd hist_gradient_boosting_regression/ && docker build . -t REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_hist_gradient_boosting_reg_project_mkg
+	docker push REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Ehist_gradient_boosting_reg_project_mkg
+
+.PHONY: build_ridge_reg
+build_push_ridge_reg: preprocess
+	cd ridge_regression/ && docker build . -t REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_ridge_reg_project_mkg
+	docker push REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Eridge_reg_project_mkg
+
+.PHONY: build_lasso_reg
+build_push_lasso_reg: preprocess
+	cd lasso_regression/ && docker build . -t REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_lasso_reg_project_mkg
+	docker push REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Elasso_reg_project_mkg
+
+.PHONY: build_polynomial_reg
+build_push_polynomial_reg: preprocess
+	cd polynomial_regression/ && docker build . -t REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_polynomial_reg_project_mkg
+	docker push REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Epolynomial_reg_project_mkg
+
+.PHONY: build_elastic_net_reg
+build_push_elastic_net_reg: preprocess
+	cd elastic_net_regression/ && docker build . -t REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Eelastic_net_reg_project_mkg
+	docker push REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Eelastic_net_reg_project_mkg
+
+.PHONY: build_decision_tree_reg
+build_push_decision_tree_reg: preprocess
+	cd decision_tree_regression/ && docker build . -t REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Edecision_tree_reg_project_mkg
+	docker push REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_Edecision_tree_reg_project_mkg
+
+
+.PHONY: pipeline
+pipeline: build_push_rf_reg build_push_hist_gradient_boosting_reg build_push_ridge_reg build_push_lasso_reg build_push_polynomial_reg build_push_elastic_net_reg build_push_decision_tree_reg
+	python pipeline.py
+
+.Phony: build_all
+build_all: build_push_rf_reg build_push_hist_gradient_boosting_reg build_push_ridge_reg build_push_lasso_reg build_push_polynomial_reg build_push_elastic_net_reg build_push_decision_tree_reg pipeline
+

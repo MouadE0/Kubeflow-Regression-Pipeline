@@ -1,0 +1,13 @@
+name: Random Forest Regression G5
+description: Apply a Random Forest regression
+
+inputs:
+  - { name: split_data, type: Json, description: "Split Data" }
+
+outputs:
+  - { name: Score, type: Float, description: "Score metric" }
+
+implementation:
+  container:
+    image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_rf_reg_project_mkg
+    command: [python, rf_regression.py, --score, { outputPath: Score }]

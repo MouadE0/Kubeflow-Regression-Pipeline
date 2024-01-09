@@ -1,0 +1,13 @@
+name: Elastic Net Regression G5
+description: Apply a Elastic Net Regression model
+
+inputs:
+  - { name: split_data, type: Json, description: "Split Data" }
+
+outputs:
+  - { name: Score, type: Float, description: "Score metric" }
+
+implementation:
+  container:
+    image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_elastic_net_reg_project_mkg
+    command: [python, elastic_net_regression.py, --score, { outputPath: Score }]

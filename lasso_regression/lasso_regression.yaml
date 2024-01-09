@@ -1,0 +1,13 @@
+name: Lasso Regression G5
+description: Apply a Lasso Regression model
+
+inputs:
+  - { name: split_data, type: Json, description: "Split Data" }
+
+outputs:
+  - { name: Score, type: Float, description: "Score metric" }
+
+implementation:
+  container:
+    image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_lasso_reg_project_mkg
+    command: [python, lasso_regression.py, --score, { outputPath: Score }]

@@ -1,0 +1,14 @@
+name: Decision Tree Regression G5
+description: Apply a Decision Tree Regression model
+
+inputs:
+  - { name: split_data, type: Json, description: "Split Data" }
+
+outputs:
+  - { name: Score, type: Float, description: "Score metric" }
+
+implementation:
+  container:
+    image: REPLACE_WITH_CONTAINER_IMAGE_REFERENCE_decision_tree_reg_project_mkg
+    command:
+      [python, decision_tree_regression.py, --score, { outputPath: Score }]
